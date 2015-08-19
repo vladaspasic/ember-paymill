@@ -116,15 +116,15 @@ var PaymentType = Ember.Object.extend({
 	/**
 	 * Validate each attribute against the Paymill validators.
 	 *
+	 * Returns `true` if the Model is valid, `false` otherwise.
+	 *
 	 * @method validate
-	 * @return {Boolean}]
+	 * @return {Boolean}
 	 */
 	validate: function() {
 		this.eachAttribute(function(name, meta) {
 			validate(this, name, meta);
 		}, this);
-
-		console.log(this.get('errors'))
 
 		return this.get('isValid');
 	},

@@ -1,5 +1,8 @@
 # Ember-paymill
 
+Ember CLI addon for Paymill Bridge javascript widget.
+
+
 This README outlines the details of collaborating on this Ember addon.
 
 ## Installation

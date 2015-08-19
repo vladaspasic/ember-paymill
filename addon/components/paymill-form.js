@@ -1,8 +1,7 @@
 import Ember from 'ember';
 
 /**
- * Component used to render the Paymill Credit Card or
- * Direct Debit models.
+ * Component used to render the Paymill Payment Type models.
  *
  * This component would handle the validation and creation
  * of the Paymill Token object needed to complete the payment
@@ -11,8 +10,11 @@ import Ember from 'ember';
  * When a Token is created, a `token` action is triggered with
  * the Token Model.
  *
- * If an error occurs during this process, or the data is invalid,
- * an `error` action is triggered with the Error object.
+ * If an error occurs during this process, an `error` action is
+ * sent with the `PaymillError` object.
+ *
+ * In case the Payment Type model is invalid an `invalid` action
+ * is sent with the `PaymillValidationError`.
  *
  * @class PaymillFormComponent
  * @extends {Ember.Component}
@@ -21,40 +23,50 @@ export default Ember.Component.extend({
 	tagName: 'form',
 	classNames: 'paymill-form',
 
+	/**
+	 * Property that would be true when the Form is submited and the
+	 * Token is beeing created.
+	 *
+	 * @property isPending
+	 * @type {Boolean}
+	 * @default false
+	 */
 	isPending: false,
 
-	model: null,
+	/**
+	 * Parameter that must be defined with a valid Payment type model.
+	 *
+	 * @property content
+	 * @type {PaymentType}
+	 */
+	content: null,
 
 	init: function() {
-		var model = this.get('model');
-		Ember.assert('You must define the `model` parameter.', Ember.isPresent(model));
+		var content = this.get('content');
+		Ember.assert('You must define the `content` parameter.', Ember.isPresent(content));
 
 		this._super();
 	},
 
 	eventManager: {
 		submit: function(e, view) {
-			var model = view.get('model');
+			e.preventDefault();
+
+			var content = view.get('content');
 
 			view.set('isPending', true);
 
-			try {
-				model.createToken(model).then(function(token) {
-					console.log(token);
-
-					view.sendAction('token', token);
-				}, function(error) {
-					console.warn(error);
-
+			content.createToken().then(function(token) {
+				view.sendAction('token', token);
+			}, function(error) {
+				if (content.get('isValid')) {
 					view.sendAction('error', error);
-				})['finally'](function() {
-					view.set('isPending', false);
-				});
-			} catch (e) {
-				console.log(e);
-			}
-
-			return false;
+				} else {
+					view.sendAction('invalid', error);
+				}
+			})['finally'](function() {
+				view.set('isPending', false);
+			});
 		}
 	}
 });

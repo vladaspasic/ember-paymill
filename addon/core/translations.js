@@ -28,7 +28,5 @@ export function addTranslations(container, locale, translations) {
 export function getTranslations(container, locale) {
 	var key = formatKey(locale);
 
-	console.log(container);
-
 	return container.lookupFactory(key);
 }
