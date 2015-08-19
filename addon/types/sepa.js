@@ -1,7 +1,7 @@
 /* globals paymill:true */
-import Ember from 'ember';
 import DS from 'ember-data';
 import PaymentType from 'ember-paymill/core/payment-type-model';
+import computed from 'ember-new-computed';
 
 /**
  * PaymentType representing the SEPA payment
@@ -41,7 +41,7 @@ export default PaymentType.extend({
 	 * @property bankName
 	 * @type {String}
 	 */
-	bankName: Ember.computed({
+	bankName: computed('iban', {
 		get: function() {
 			var iban = this.get('iban'),
 				bankCode = '';
@@ -54,7 +54,7 @@ export default PaymentType.extend({
 				promise: this.paymill.getBankName(bankCode)
 			});
 		}
-	}).property('iban'),
+	}),
 
 	/**
 	 * Name of the Bank account holder.

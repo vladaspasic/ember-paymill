@@ -5,6 +5,7 @@ import {
 	addTranslations,
 	getTranslations
 } from 'ember-paymill/core/translations';
+import computed from 'ember-new-computed';
 
 function resolvePaymentType(model) {
 	return model &&
@@ -88,7 +89,7 @@ export default Ember.Service.extend({
 	 * @type {Object}
 	 * @readOnly
 	 */
-	translations: Ember.computed('locale', {
+	translations: computed('locale', {
 		get: function() {
 			var container = this.get('container'),
 				locale = this.get('locale');

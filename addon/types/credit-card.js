@@ -1,6 +1,6 @@
 /* globals paymill:true */
-import Ember from 'ember';
 import PaymentType from 'ember-paymill/core/payment-type-model';
+import computed from 'ember-new-computed';
 
 /**
  * Model representing the Credit Card payment
@@ -76,11 +76,11 @@ export default PaymentType.extend({
 	 * @type {String}
 	 * @readOnly
 	 */
-	cardType: Ember.computed({
+	cardType: computed('number', {
 		get: function() {
 			var number = this.get('number');
 
 			return paymill.cardType(number);
 		}
-	}).property('number'),
+	}),
 });

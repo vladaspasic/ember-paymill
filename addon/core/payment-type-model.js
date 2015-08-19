@@ -4,6 +4,7 @@ import DS from 'ember-data';
 import serialize from 'ember-paymill/core/serializer';
 import validate from 'ember-paymill/core/validation';
 import ValidationError from 'ember-paymill/errors/validation';
+import computed from 'ember-new-computed';
 
 // Create the validator name from the attr type
 function buildValidatorName(type) {
@@ -28,7 +29,7 @@ function attribute(type, options) {
 		isAttribute: true
 	};
 
-	return Ember.computed({
+	return computed({
 		get: function(key) {
 			return Ember.get(this._data, key);
 		},
@@ -135,7 +136,7 @@ var PaymentType = Ember.Object.extend({
 	 * @return {Ember.RSVP.Promise} [description]
 	 */
 	createToken: function() {
-		if(this.validate()) {
+		if (this.validate()) {
 			return this.paymill.createToken(this);
 		} else {
 			var errors = this.get('errors');
@@ -183,18 +184,20 @@ PaymentType.reopenClass({
 	 * @static
 	 * @return {Ember.Map}
 	 */
-	attributes: Ember.computed(function() {
-		var map = Ember.Map.create();
+	attributes: computed({
+		get: function() {
+			var map = Ember.Map.create();
 
-		this.eachComputedProperty(function(name, meta) {
-			if (meta.isAttribute) {
-				meta.name = name;
-				map.set(name, meta);
-			}
-		});
+			this.eachComputedProperty(function(name, meta) {
+				if (meta.isAttribute) {
+					meta.name = name;
+					map.set(name, meta);
+				}
+			});
 
-		return map;
-	}).readOnly(),
+			return map;
+		}
+	}),
 
 	/**
 	 * Itereate through each attribute of the Payment Type Model.

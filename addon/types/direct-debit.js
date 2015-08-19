@@ -1,7 +1,7 @@
 /* globals paymill:true */
-import Ember from 'ember';
 import DS from 'ember-data';
 import PaymentType from 'ember-paymill/core/payment-type-model';
+import computed from 'ember-new-computed';
 
 /**
  * Payment Type Model representing the ELV (Elektronisches Lastschriftverfahren)
@@ -43,7 +43,7 @@ export default PaymentType.extend({
 	 * @property bankName
 	 * @type {String}
 	 */
-	bankName: Ember.computed({
+	bankName: computed('bank', {
 		get: function() {
 			var bankCode = this.get('bank');
 
@@ -51,7 +51,7 @@ export default PaymentType.extend({
 				promise: this.paymill.getBankName(bankCode)
 			});
 		}
-	}).property('bank'),
+	}),
 
 	/**
 	 * Name of the Bank account holder.
