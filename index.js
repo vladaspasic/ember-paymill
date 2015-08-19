@@ -8,7 +8,7 @@ module.exports = {
 		var content = [];
 
 		if (type === 'head') {
-			if (!config.paymill && !config.paymill.apiKey) {
+			if (!config.paymill || !config.paymill.apiKey) {
 				console.error('Please specify your paymill.apiKey in your configuration.');
 			} else {
 				content = [
