@@ -1,0 +1,91 @@
+<h2 id="title">Welcome to Ember.js</h2>
+
+{{#paymill-form model=model}}
+	<p>
+		number {{input value=model.number}} <br/>
+
+		{{model.cardType}}
+	</p>
+	<p>
+		currency {{input value=model.currency}}
+	</p>
+	<p>
+		cvc {{input value=model.cvc}}
+	</p>
+	<p>
+		expiry month {{input value=model.expiryMonth}}
+		expiry year {{input value=model.expiryYear}}
+	</p>
+	<p>
+		amount {{input value=model.amount}}
+	</p>
+
+	{{#each error in model.errors.messages}}
+		<p>{{error}}</p>
+	{{/each}}
+
+
+	<input type='submit' value='Submit'>
+
+{{/paymill-form}}
+
+<p>Sepa</p>
+
+{{#paymill-form model=sepa}}
+	<p>
+		iban {{input value=sepa.iban}} <br/>
+
+		{{sepa.bankName.content}}
+	</p>
+	<p>
+		bic {{input value=sepa.bic}}
+	</p>
+	<p>
+		currency {{input value=sepa.currency}}
+	</p>
+	<p>
+		amount {{input value=sepa.amount}}
+	</p>
+
+	{{#each error in sepa.errors.messages}}
+		<p>{{error}}</p>
+	{{/each}}
+
+	<input type='submit' value='Submit'>
+
+{{/paymill-form}}
+
+<p>ELV</p>
+
+{{#paymill-form model=elv isPending=isPending}}
+	<p>
+		number {{input value=elv.number}}
+	</p>
+	<p>
+		bank {{input value=elv.bank}} <br/>
+
+		{{elv.bankName.content}}
+	</p>
+	<p>
+		holder {{input value=elv.holder}}
+	</p>
+	<p>
+		currency {{input value=elv.currency}}
+	</p>
+	<p>
+		amount {{input value=elv.amount}}
+	</p>
+
+	{{#each error in elv.errors.messages}}
+		<p>{{error}}</p>
+	{{/each}}
+
+	{{#if isPending}}
+		<p>Processing</p>
+	{{/if}}
+
+	<input type='submit' value='Submit' {{bind-attr disabled=isPending}}>
+
+{{/paymill-form}}
+
+{{outlet}}

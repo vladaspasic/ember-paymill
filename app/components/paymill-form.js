@@ -1,0 +1,1 @@
+export { default } from 'ember-paymill/components/paymill-form';
