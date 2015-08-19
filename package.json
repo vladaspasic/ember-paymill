@@ -2,6 +2,10 @@
   "name": "ember-paymill",
   "version": "0.0.0",
   "description": "The default blueprint for ember-cli addons.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vladaspasic/ember-paymill.git"
+  },
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -11,7 +15,6 @@
     "build": "ember build",
     "test": "ember try:testall"
   },
-  "repository": "",
   "engines": {
     "node": ">= 0.10.0"
   },
