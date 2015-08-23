@@ -64,7 +64,7 @@ var PaymentType = Ember.Object.extend({
 	 * @private
 	 * @type {Object}
 	 */
-	_data: Ember.create(null),
+	_data: null,
 
 	data: Ember.computed.readOnly('_data'),
 
@@ -102,6 +102,7 @@ var PaymentType = Ember.Object.extend({
 		this._super();
 
 		this.errors = DS.Errors.create();
+		this._data = Ember.create(null);
 	},
 
 	/**
