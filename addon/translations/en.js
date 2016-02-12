@@ -2,6 +2,7 @@ export default {
 	'credit-card': 'Credit card',
 	'direct-debit': 'Direct debit',
 	'sepa': 'SEPA',
+	'paypal': 'Paypal',
 	errors: {
 		internal_server_error: 'An error occurred, but nothing was billed. Please try again',
 		invalid_public_key: 'Invalid Paymill API key.',
@@ -22,6 +23,7 @@ export default {
 		field_invalid_iban: 'Please enter a valid IBAN',
 		field_invalid_bic: 'Please enter a valid BIC',
 		field_invalid_country: 'Invalid country',
-		field_invalid_bank_data: 'Invalid bank data'
+		field_invalid_bank_data: 'Invalid bank data',
+		field_invalid_checksum: 'Invalid checksum provided for transaction'
 	}
 };
