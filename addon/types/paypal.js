@@ -21,10 +21,7 @@ export default PaymentType.extend({
 	 * @property checksum
 	 * @type {String}
 	 */
-	checksum:  PaymentType.attr('string', {
-		validator: validateChecksum,
-		errorKey: paymill.E_PP_INVALID_CHKSUM
-	}),
+	checksum:  PaymentType.attr('string'),
 
 	/**
 	 * url to redirect to if payment was successful
