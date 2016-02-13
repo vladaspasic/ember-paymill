@@ -2,6 +2,7 @@ import Ember from 'ember';
 import CreditCard from 'ember-paymill/types/credit-card';
 import SEPA from 'ember-paymill/types/sepa';
 import ELV from 'ember-paymill/types/direct-debit';
+import Paypal from 'ember-paymill/types/paypal';
 
 function modelFor(type) {
 	return Ember.computed(function(key) {
@@ -14,5 +15,6 @@ export default Ember.Controller.extend({
 
 	model: modelFor('credit-card'),
 	sepa: modelFor('sepa'),
-	elv: modelFor('direct-debit')
+	elv: modelFor('direct-debit'),
+	paypal: modelFor('paypal')
 });
