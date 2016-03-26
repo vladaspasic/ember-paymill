@@ -29,9 +29,7 @@ export default PaymentType.extend({
 	 * @type {String}
 	 */
 	cvc: PaymentType.attr('cvc', {
-		validator: function() {
-			return true;
-		},
+		validator: 'validateCvc',
 		errorKey: paymill.E_CC_INVALID_CVC
 	}),
 
